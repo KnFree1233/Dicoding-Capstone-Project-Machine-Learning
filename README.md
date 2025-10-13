@@ -1,5 +1,5 @@
 # Dicoding-Capstone-Project-Machine-Learning
-Machine Learning for Capstone Project Dicoding Indonesia DB8 Machine Learning
+This project was developed as part of the Machine Learning Capstone Project for Dicoding Indonesia’s Machine Learning Batch 8 program
 
 # Dataset
 The dataset used in this project is sourced from Roboflow:<br>
