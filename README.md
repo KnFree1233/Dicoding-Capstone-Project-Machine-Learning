@@ -1,6 +1,10 @@
 # Dicoding-Capstone-Project-Machine-Learning
 This project was developed as part of the Machine Learning Capstone Project for Dicoding Indonesia’s Machine Learning Batch 8 program
 
+# Food Nutrition API
+To host the API, first need to run this command:<br>
+pip install fastapi uvicorn torch torchvision torchaudio ultralytics timm Pillow starlette opencv-python matplotlib
+
 # Dataset
 The dataset used in this project:<br>
 - Food Segmentation from Robotflow<br>
