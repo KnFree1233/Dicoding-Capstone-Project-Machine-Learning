@@ -50,12 +50,12 @@ def read_root():
     return {"message": f"Server {'Active' if status else 'Inactive'}"}
 
 @app.post("/predict")
-async def predict(file: UploadFile = File(...)):
+async def predict(image: UploadFile = File(...)):
     if not status:
         return {"message": "Server Inactive"}
 
     try:
-        image_bytes = await file.read()
+        image_bytes = await image.read()
         image = Image.open(io.BytesIO(image_bytes))
     except Exception as e:
         print(f"Error reading image: {e}")

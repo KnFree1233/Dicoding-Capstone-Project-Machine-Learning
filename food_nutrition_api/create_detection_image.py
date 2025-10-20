@@ -2,14 +2,41 @@ import numpy as np
 import cv2
 import uuid
 import os
+from PIL import Image
+from tools import resize_mask, resize_bbox
+
 
 def create_detection_image(image, food_results, coin_result, output_dir):
-    img = np.array(image)
-    coin_box = coin_result["coin_box"].reshape(1, 4)
-    coin_mask = coin_result["coin_mask"].reshape(1, 640, 480)
+    old_w, old_h = image.size
 
-    combine_boxes = np.concatenate((food_results["food_boxes"], coin_box), axis=0)
-    combine_masks = np.concatenate((food_results["food_masks"], coin_mask), axis=0)
+    # Delete EXIF
+    image_no_exif = Image.new(image.mode, image.size)
+    image_no_exif.putdata(list(image.getdata()))
+    image = image_no_exif
+
+    target_height = 640
+    target_width = int(target_height * 3 / 4)
+    image = image.resize((target_width, target_height))
+    img = np.array(image)
+
+    food_masks_resize = []
+    for food_mask in food_results['food_masks']:
+        food_masks_resize.append(resize_mask(food_mask, target_height, target_width))
+    food_masks_resize = np.array(food_masks_resize)
+
+    food_bboxes_resize = []
+    for food_bboxes in food_results['food_boxes']:
+        food_bboxes_resize.append(resize_bbox(food_bboxes, old_w, old_h, target_width, target_height))
+    food_bboxes_resize = np.array(food_bboxes_resize)
+
+    coin_mask_resize = resize_mask(coin_result["coin_mask"], target_height, target_width)
+    coin_bboxes_resize = resize_bbox(coin_result["coin_box"], old_w, old_h, target_width, target_height)
+
+    coin_box = np.expand_dims(coin_bboxes_resize, axis=0)
+    coin_mask = np.expand_dims(coin_mask_resize, axis=0)
+
+    combine_boxes = np.concatenate((food_bboxes_resize, coin_box), axis=0)
+    combine_masks = np.concatenate((food_masks_resize, coin_mask), axis=0)
     combine_class_name = np.concatenate([food_results["food_class_names"], [coin_result["coin_class_name"]]], axis=0)
     combine_confidences = np.concatenate([food_results["food_confidences"], [coin_result["coin_confidence"]]], axis=0)
 

@@ -26,6 +26,17 @@ def resize_mask(mask, h, w):
     convert_mask = cv2.resize(mask, (w, h), interpolation=cv2.INTER_NEAREST)
     return convert_mask
 
+def resize_bbox(bbox, old_w, old_h, new_w, new_h):
+    scale_x = new_w / old_w
+    scale_y = new_h / old_h
+    x_min, y_min, x_max, y_max = bbox
+    return [
+        int(x_min * scale_x),
+        int(y_min * scale_y),
+        int(x_max * scale_x),
+        int(y_max * scale_y)
+    ]
+
 def get_size_px(mask):
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnt = max(contours, key=cv2.contourArea)
