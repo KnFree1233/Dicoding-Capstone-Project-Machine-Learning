@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import uuid
 import os
-from PIL import Image
+from PIL import ImageOps
 from tools import resize_mask, resize_bbox
 
 
@@ -10,9 +10,7 @@ def create_detection_image(image, food_results, coin_result, output_dir):
     old_w, old_h = image.size
 
     # Delete EXIF
-    image_no_exif = Image.new(image.mode, image.size)
-    image_no_exif.putdata(list(image.getdata()))
-    image = image_no_exif
+    image = ImageOps.exif_transpose(image)
 
     target_height = 640
     target_width = int(target_height * 3 / 4)
