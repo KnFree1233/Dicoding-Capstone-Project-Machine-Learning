@@ -1,9 +1,47 @@
 # Dicoding-Capstone-Project-Machine-Learning
 This project was developed as part of the Machine Learning Capstone Project for Dicoding Indonesia’s Machine Learning Batch 8 program
 
-# Food Nutrition API
-To host the API, first need to run this command:<br>
+# Food Nutrition API with FastAPI and ngrok
+## 1. Install Python
+Make sure **Python** is installed on your system.
+
+---
+
+## 2. Download the Project
+Download or clone the `food_nutrition_api` folder to your computer.
+
+---
+
+## 3. Open Command Prompt
+Navigate to the project directory to food_nutrition_api
+
+---
+
+## 4. Install Dependencies
+Run this command to install all required packages:<br>
+```bash
 pip install fastapi uvicorn torch torchvision torchaudio ultralytics timm Pillow starlette opencv-python matplotlib
+```
+
+---
+
+## 5. Run the API and ngrok
+Open two Command Prompt windows in the same directory `food_nutrition_api`<br>
+In the first window, run:
+```bash
+uvicorn app:app --host 0.0.0.0 --port 8000
+```
+In the second window, run:
+```bash
+ngrok authtoken 2O0zimhxpQfH3Szqb4JJ2Iqv68E_4YGFrYZjNpN8pP7C7VRL6
+ngrok http --domain=muticous-loralee-formlessly.ngrok-free.dev 8000
+```
+
+---
+
+## 6. Mobile Android Application
+You can use my team mobile app, to test the API on this link
+[GiziLens](https://drive.google.com/file/d/1A22DiK21rtq63m9S0UKM0hwX7R0vpIQV/view?usp=sharing)
 
 # Dataset
 The dataset used in this project:<br>
