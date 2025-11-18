@@ -33,8 +33,7 @@ uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 In the second window, run:
 ```bash
-ngrok authtoken 2O0zimhxpQfH3Szqb4JJ2Iqv68E_4YGFrYZjNpN8pP7C7VRL6
-ngrok http --domain=muticous-loralee-formlessly.ngrok-free.dev 8000
+ngrok http 8000
 ```
 
 ---
